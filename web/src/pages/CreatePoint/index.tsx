@@ -20,7 +20,7 @@ interface Item {
 }
 
 interface IBGEUfResponse {
-    sigla: string;
+    nome: string;
 }
 
 interface IBGECityResponse {
@@ -65,9 +65,9 @@ const CreatePoint = () => {
     }, []);
 
     useEffect(() => {
-        axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+        axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
             .then(response => {
-                const ufInitials = response.data.map(uf => uf.sigla);
+                const ufInitials = response.data.map(uf => uf.nome);
 
                 setUfs(ufInitials);
             });
@@ -241,7 +241,7 @@ const CreatePoint = () => {
                                 value={selectedUf}
                                 onChange={handleSelectUf}
                             >
-                                <option value="0">Selecione uma UF</option>
+                                <option value="0">Selecione um Estado</option>
                                 {ufs.map(uf => (
                                     <option key={uf} value={uf}>{uf}</option>
                                 ))};
@@ -256,7 +256,7 @@ const CreatePoint = () => {
                                 value={selectedCity}
                                 onChange={handleSelectCity}
                             >
-                                <option value="0">Selecione uma cidade</option>
+                                <option value="0">Selecione uma Cidade</option>
                                 {cities.map(city => (
                                     <option key={city} value={city}>{city}</option>
                                 ))};
