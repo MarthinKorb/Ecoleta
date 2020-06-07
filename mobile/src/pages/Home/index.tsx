@@ -39,7 +39,7 @@ const Home = () => {
 
     useEffect(() => {
         axios
-            .get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+            .get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
             .then(response => {
                 const ufData = response.data.map(uf => (
                     {
