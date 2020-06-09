@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Route, Router } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import api from '../../services/api';
@@ -20,7 +20,7 @@ interface Item {
 }
 
 interface IBGEUfResponse {
-    nome: string;
+    sigla: string;
 }
 
 interface IBGECityResponse {
@@ -67,7 +67,7 @@ const CreatePoint = () => {
     useEffect(() => {
         axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
             .then(response => {
-                const ufInitials = response.data.map(uf => uf.nome);
+                const ufInitials = response.data.map(uf => uf.sigla);
 
                 setUfs(ufInitials);
             });
@@ -156,8 +156,6 @@ const CreatePoint = () => {
         }; */
 
         await api.post('points', data);
-
-        alert('Ponto de coleta criado!');
 
         history.push('/');
     }

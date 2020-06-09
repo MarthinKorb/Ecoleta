@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Feather as Icon } from '@expo/vector-icons';
-import { View, ImageBackground, Text, Image, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, ImageBackground, Text, Image, StyleSheet, ToastAndroid ,KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -30,6 +30,17 @@ const Home = () => {
     const navigation = useNavigation();
 
     function handleNavigateToPoints() {
+
+        if(selectedUf.includes('0')){
+            Alert.alert('Aviso','O Estado deve ser selecionado.');
+            return;
+        }
+
+        if (selectedCity.includes('0')) {
+            Alert.alert('Aviso','A cidade deve ser selecionada.');
+            return;
+        }
+
         navigation.navigate('Points', {
             uf: selectedUf,
             city: selectedCity
@@ -92,7 +103,7 @@ const Home = () => {
                         onValueChange={(value) => setSelectedUf(value)}
                         //value={uf}
                         items={ufs}
-                        placeholder={{ label: "Selecione a UF" }}
+                        placeholder={{ label: "Selecione o Estado" }}
                         style={pickerSelectStyles}
                     />
 
@@ -100,7 +111,7 @@ const Home = () => {
                         onValueChange={(value) => setSelectedCity(value)}
                         //value={uf}
                         items={cities}
-                        placeholder={{ label: "Selecione a cidade" }}
+                        placeholder={{ label: "Selecione a Cidade" }}
                         style={pickerSelectStyles}
                     />
 
